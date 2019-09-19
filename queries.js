@@ -9,7 +9,7 @@ var fs = require('fs'),
     Schema = mongoose.Schema, 
     Listing = require('./ListingSchema.js'), 
     config = require('./config.js'),
-    listingFile = require('./listings.json'); 
+    data = require('./listings.json'); 
     
     mongoose.connect(config.db.uri, { useNewUrlParser: true });
 var findLibraryWest = function() {
@@ -17,9 +17,9 @@ var findLibraryWest = function() {
     Find the document that contains data corresponding to Library West,
     then log it to the console. 
    */
-  Listing.findOne({name:"Library West"}, function(err, listingData) {
+  Listing.findOne({name:"Library West"}, function(err, data) {
     if (err) throw err;
-    console.log("Found : ", listingData.name, "\n", listingData);
+    console.log("Found : ", data.name, "\n", data);
   });
 
 };
@@ -30,12 +30,12 @@ var removeCable = function() {
     and remove this listing from your database and log the document to the console. 
    */
 
-  Listing.findOne({code : "CABL"}, function(err, listingData) {
+  Listing.findOne({code : "CABL"}, function(err, data) {
       if (err) throw err;
       Listing.deleteOne(function(err) {
         if (err) throw err;
       })
-      console.log("Removed : ", listingData.code, "\n", listingData);
+      console.log("Removed : ", data.code, "\n", data);
   });
 };
 var updatePhelpsLab = function() {
@@ -46,12 +46,12 @@ var updatePhelpsLab = function() {
     Correct Address: 1953 Museum Rd, Gainesville, FL 32603
 
    */
-  Listing.findOne({code:"PHL"}, function(err, listingData){
+  Listing.findOne({code:"PHL"}, function(err, data){
     if (err) throw err;
-    listingData.address = "1953 Museum Rd, Gainesville, FL 32603";
-    listingData.save(function(err) {
+    data.address = "1953 Museum Rd, Gainesville, FL 32603";
+    data.save(function(err) {
       if (err) throw err;
-      console.log("Update : ", listingData.name, "\n", listingData);
+      console.log("Update : ", data.name, "\n", data);
     });
   });
 
@@ -60,9 +60,9 @@ var retrieveAllListings = function() {
   /* 
     Retrieve all listings in the database, and log them to the console. 
    */
-  Listing.find(function(err, listingData) {
+  Listing.find(function(err, data) {
     if (err) throw err;
-    console.log("\n All Listings \n", listingData);
+    console.log("\n All Listings \n", data);
   });
 };
 
